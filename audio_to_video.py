@@ -10,6 +10,11 @@ import logging
 import colorlog
 from tqdm import tqdm
 
+# 免费模型
+MODEL_IMAGE = "stabilityai/stable-diffusion-3-5-large"
+MODEL_AUDIO = "FunAudioLLM/SenseVoiceSmall"
+MODEL_TEXT = "THUDM/glm-4-9b-chat"
+
 # Configure colorful logging
 handler = colorlog.StreamHandler()
 handler.setFormatter(colorlog.ColoredFormatter(
@@ -95,7 +100,7 @@ class AudioToVideo:
                 with open(audio_path, 'rb') as f:
                     files = {
                         'file': ('audio.mp3', ProgressFileWrapper(f), 'audio/mpeg'),
-                        'model': (None, 'FunAudioLLM/SenseVoiceSmall')
+                        'model': (None, MODEL_AUDIO)
                     }
                     
                     headers = {
@@ -134,7 +139,7 @@ class AudioToVideo:
 请用英文回答，因为后续需要给text-to-image模型使用。字数控制在100字以内"""
         
         payload = {
-            "model": "THUDM/glm-4-9b-chat",
+            "model": MODEL_TEXT,
             "messages": [
                 {
                     "role": "user",
@@ -171,7 +176,7 @@ class AudioToVideo:
         logger.debug(f"Prompt: {prompt}")
         
         payload = {
-            "model": "stabilityai/stable-diffusion-3-5-large",
+            "model": MODEL_IMAGE,
             "prompt": prompt,
             "image_size": "1024x1024",
             "batch_size": 1,
