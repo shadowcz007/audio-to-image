@@ -1,0 +1,15 @@
+# Configuration files containing sensitive information
+config.py
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Generated files
+*.mp4
+*.png
+*.jpg
+*.jpeg
+/venv
+audio_to_video.log
